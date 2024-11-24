@@ -9,8 +9,19 @@ Item{
 
     property int errors: 0
     property int maxErrors: 8
-    property string word: "GALGENMANN"
+    property string word: ""
     property string guessedLetters: ""
+
+    ListView {
+        id: wordModel //container to load all the words
+        width: 0
+        height: 0
+        model: WordList { }
+    }
+
+    Component.onCompleted: {
+        selectRandomWord();
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -80,6 +91,13 @@ Item{
             }
         }
 
+        Text {
+            Layout.fillWidth: true
+            visible: galgenmann.errors >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord()
+            font.pixelSize: 18
+            text: qsTr("Das Wort war:\t" + galgenmann.word)
+        }
+
         // Result at the end of the game
         Text {
             Layout.fillWidth: true
@@ -109,6 +127,13 @@ Item{
     }
 
     // define functions
+    function selectRandomWord() {
+        if (wordModel.model.count > 0) {
+            var randomIndex = Math.floor(Math.random() * wordModel.model.count);
+            word = wordModel.model.get(randomIndex).word;
+        }
+    }
+
     function sendGuess() {
         if(inputField.text.length > 0) {
             let guess = inputField.text.toUpperCase();
@@ -133,5 +158,6 @@ Item{
     function resetGame() {
         errors = 0;
         guessedLetters = "";
+        selectRandomWord()
     }
 }

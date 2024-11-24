@@ -1,11 +1,15 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Controls.Material
 
 Item{
     id: galgenmann
     width: 800
     height: 640
+
+    // without this, we get problems at MacOS darkmode
+    Material.theme: Material.Light
 
     property int errors: 0
     property int maxErrors: 8

@@ -22,6 +22,7 @@ qt_add_qml_module(appRtrGms
         SOURCES
         RESOURCES
         QML_FILES WordList.qml
+        QML_FILES
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-    //add specific
+    //add specific buildvariables
     qputenv("QML_XHR_ALLOW_FILE_READ", QByteArray("1"));
 
     QGuiApplication app(argc, argv);

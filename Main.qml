@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Material
 
 Window {
     // Defining the Window
@@ -8,10 +9,23 @@ Window {
     height: 640
     title: qsTr("Retro Games")
 
+    // without this, we get problems at MacOS darkmode
+    Material.theme: Material.Light
+
     //variables
     id: mainWindow
     property int playerCount: 1
 
+    // Dialog
+    Dialog {
+        id: notImplementedDialog
+        title: "Not Available"
+        standardButtons: Dialog.Ok
+
+        Label {
+            text: "Dieses Spiel ist noch nicht implementiert"
+        }
+    }
 
     // Menu
     MenuBar {
@@ -33,6 +47,7 @@ Window {
         }
     }
 
+    // Content Area
     StackView {
         id: windowStack
         anchors.fill: parent
@@ -89,47 +104,44 @@ Window {
                     text: qsTr("Labyrinth")
                     visible: mainWindow.playerCount === 1
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: console.log("Labyrinth choosen")
+                    onClicked: notImplementedDialog.open()
                 }
 
                 Button {
                     text: qsTr("Snake")
                     visible: mainWindow.playerCount === 1
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: console.log("Snake choosen")
+                    onClicked: notImplementedDialog.open()
                 }
 
                 Button {
                     text: qsTr("Snake 2P")
                     visible: mainWindow.playerCount === 2
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: console.log("Snake 2P choosen")
+                    onClicked: notImplementedDialog.open()
                 }
 
                 Button {
                     text: qsTr("Pong")
                     visible: mainWindow.playerCount === 2
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: console.log("Pong choosen")
+                    onClicked: notImplementedDialog.open()
                 }
 
                 Button {
                     text: qsTr("Space Invaders")
                     visible: mainWindow.playerCount === 1
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: console.log("Space Invaders choosen")
+                    onClicked: notImplementedDialog.open()
                 }
 
                 Button {
                     text: qsTr("Simple RPG")
                     visible: mainWindow.playerCount === 1
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: console.log("Simple RPG choosen")
+                    onClicked: notImplementedDialog.open()
                 }
             }
         }
     }
-
-    // Content Area
-
 }

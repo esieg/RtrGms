@@ -1,29 +1,137 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 
 Item{
+    id: galgenmann
     width: 800
     height: 640
 
-    Rectangle {
+    property int errors: 0
+    property int maxErrors: 8
+    property string word: "GALGENMANN"
+    property string guessedLetters: ""
+
+    ColumnLayout {
         anchors.fill: parent
-        color: "lightblue"
+        anchors.margins: 20
+        spacing: 10
 
-        Text {
-            text: "Hallo Galgenmann"
-            font.pixelSize: 24
-            anchors.centerIn: parent
-        }
-
-        Button {
-            text: "Zurück"
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 20
-
-            onClicked: {
-                windowStack.pop()
+        // Galgenmann-Picture
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 200
+            color: "lightgray"
+            Text {
+                anchors.centerIn: parent
+                font.pixelSize: 50
+                text: (galgenmann.errors < galgenmann.maxErrors ? String(galgenmann.errors + 1) : "Game Over")
             }
         }
+
+        // Guessed and guessable letters
+        RowLayout {
+            Layout.fillWidth: true
+            visible: !(galgenmann.errors >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord())
+            spacing: 5
+            Repeater {
+                model: galgenmann.word.length
+                Text {
+                    text: galgenmann.guessedLetters.indexOf(galgenmann.word[index]) >= 0 ? galgenmann.word[index] : "_"
+                    font.pixelSize: 24
+                }
+            }
+        }
+
+        // Errorcounter
+        Text {
+            Layout.fillWidth: true
+            visible: !(galgenmann.errors >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord())
+            text: `Fehler: ${galgenmann.errors} von ${galgenmann.maxErrors}`
+            font.pixelSize: 18
+        }
+
+        // Until now guessed letters
+        Text {
+            Layout.fillWidth: true
+            visible: !(galgenmann.errors >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord())
+            text: `Bisher geschätzt: ${galgenmann.guessedLetters.split("").join(", ")}`
+            font.pixelSize: 18
+        }
+
+        // Entryline and sendbutton
+        RowLayout {
+            Layout.fillWidth: true
+            visible: !(galgenmann.errors >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord())
+            spacing: 10
+            TextField {
+                id: inputField
+                Layout.fillWidth: true
+                placeholderText: "Buchstaben eingeben"
+                font.pixelSize: 18
+                validator: RegularExpressionValidator { regularExpression: /^[a-zA-Z]$/ }
+                inputMethodHints: Qt.ImhUppercaseOnly
+                onTextChanged: text = text.toUpperCase();
+                onAccepted: galgenmann.sendGuess()
+            }
+            Button {
+                text: qsTr("Raten")
+                onClicked: galgenmann.sendGuess()
+            }
+        }
+
+        // Result at the end of the game
+        Text {
+            Layout.fillWidth: true
+            visible: galgenmann.errors >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord()
+            font.pixelSize: 24
+            color: galgenmann.errors >= galgenmann.maxErrors ? "red" : "green"
+            text: galgenmann.errors >= galgenmann.maxErrors ? "Du hast verloren" : "Du hast gewonnen"
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        // controll buttons
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 20
+            Button {
+                text: "Spiel beenden"
+                onClicked: {
+                    galgenmann.resetGame()
+                    windowStack.pop()
+                }
+            }
+            Button {
+                text: "Neues Spiel"
+                onClicked: galgenmann.resetGame()
+            }
+        }
+    }
+
+    // define functions
+    function sendGuess() {
+        if(inputField.text.length > 0) {
+            let guess = inputField.text.toUpperCase();
+            if(word.indexOf(guess) === -1) {
+                errors++;
+            } else if(guessedLetters.indexOf(guess) === -1) {
+                guessedLetters += guess;
+            }
+            inputField.text = "";
+        }
+    }
+
+    function guessedLettersContainsWord() {
+        for (let i = 0; i < word.length; i++) {
+            if(guessedLetters.indexOf(word[i]) == -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function resetGame() {
+        errors = 0;
+        guessedLetters = "";
     }
 }

@@ -11,10 +11,10 @@ Item{
     // without this, we get problems at MacOS darkmode
     Material.theme: Material.Light
 
-    property int errors: 0
     property int maxErrors: 8
     property string word: ""
     property string guessedLetters: ""
+    property string missGuessedLetters: ""
 
     ListView {
         id: wordModel //container to load all the words
@@ -40,14 +40,14 @@ Item{
             Text {
                 anchors.centerIn: parent
                 font.pixelSize: 50
-                text: (galgenmann.errors < galgenmann.maxErrors ? String(galgenmann.errors + 1) : "Game Over")
+                text: (galgenmann.missGuessedLetters.length < galgenmann.maxErrors ? String(galgenmann.missGuessedLetters.length + 1) : "Game Over")
             }
         }
 
         // Guessed and guessable letters
         RowLayout {
             Layout.fillWidth: true
-            visible: !(galgenmann.errors >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord())
+            visible: !(galgenmann.missGuessedLetters.length >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord())
             spacing: 5
             Repeater {
                 model: galgenmann.word.length
@@ -61,23 +61,23 @@ Item{
         // Errorcounter
         Text {
             Layout.fillWidth: true
-            visible: !(galgenmann.errors >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord())
-            text: `Fehler: ${galgenmann.errors} von ${galgenmann.maxErrors}`
+            visible: !(galgenmann.missGuessedLetters.length >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord())
+            text: `Fehler: ${galgenmann.missGuessedLetters.length} von ${galgenmann.maxErrors}`
             font.pixelSize: 18
         }
 
         // Until now guessed letters
         Text {
             Layout.fillWidth: true
-            visible: !(galgenmann.errors >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord())
-            text: `Bisher geschätzt: ${galgenmann.guessedLetters.split("").join(", ")}`
+            visible: !(galgenmann.missGuessedLetters.length >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord())
+            text: `Falsch geraten: ${galgenmann.missGuessedLetters.split("").join(", ")}`
             font.pixelSize: 18
         }
 
         // Entryline and sendbutton
         RowLayout {
             Layout.fillWidth: true
-            visible: !(galgenmann.errors >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord())
+            visible: !(galgenmann.missGuessedLetters.length >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord())
             spacing: 10
             TextField {
                 id: inputField
@@ -97,7 +97,7 @@ Item{
 
         Text {
             Layout.fillWidth: true
-            visible: galgenmann.errors >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord()
+            visible: galgenmann.missGuessedLetters.length >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord()
             font.pixelSize: 18
             text: qsTr("Das Wort war:\t" + galgenmann.word)
         }
@@ -105,10 +105,10 @@ Item{
         // Result at the end of the game
         Text {
             Layout.fillWidth: true
-            visible: galgenmann.errors >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord()
+            visible: galgenmann.missGuessedLetters.length >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord()
             font.pixelSize: 24
-            color: galgenmann.errors >= galgenmann.maxErrors ? "red" : "green"
-            text: galgenmann.errors >= galgenmann.maxErrors ? "Du hast verloren" : "Du hast gewonnen"
+            color: galgenmann.missGuessedLetters.length >= galgenmann.maxErrors ? "red" : "green"
+            text: galgenmann.missGuessedLetters.length >= galgenmann.maxErrors ? "Du hast verloren" : "Du hast gewonnen"
             horizontalAlignment: Text.AlignHCenter
         }
 
@@ -142,7 +142,7 @@ Item{
         if(inputField.text.length > 0) {
             let guess = inputField.text.toUpperCase();
             if(word.indexOf(guess) === -1) {
-                errors++;
+                missGuessedLetters += guess;
             } else if(guessedLetters.indexOf(guess) === -1) {
                 guessedLetters += guess;
             }
@@ -160,7 +160,7 @@ Item{
     }
 
     function resetGame() {
-        errors = 0;
+        missGuessedLetters = "";
         guessedLetters = "";
         selectRandomWord()
     }

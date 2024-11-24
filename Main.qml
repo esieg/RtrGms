@@ -3,9 +3,9 @@ import QtQuick.Controls
 
 Window {
     // Defining the Window
+    visible: true
     width: 800
     height: 640
-    visible: true
     title: qsTr("Retro Games")
 
     //variables
@@ -33,91 +33,103 @@ Window {
         }
     }
 
-    // Content Area
-    Column {
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.topMargin: 70
-        anchors.rightMargin: 70
-        spacing: 20
+    StackView {
+        id: windowStack
+        anchors.fill: parent
 
-        // first line should rontain a row with 1 or 2 Player Games selection
-        Row {
-            spacing: 10
+        initialItem: Item {
+            width: 800
+            height: 640
 
-            Button {
-                text: "←"
-                enabled: mainWindow.playerCount > 1
-                onClicked: {
-                    mainWindow.playerCount -= 1;
+            Column {
+                anchors.top: parent.top
+                anchors.right: parent.right
+                anchors.topMargin: 70
+                anchors.rightMargin: 70
+                spacing: 20
+
+                // first line should rontain a row with 1 or 2 Player Games selection
+                Row {
+                    spacing: 10
+
+                    Button {
+                        text: "←"
+                        enabled: mainWindow.playerCount > 1
+                        onClicked: {
+                            mainWindow.playerCount -= 1;
+                        }
+                    }
+
+                    Text{
+                        id: selectionText
+                        text: mainWindow.playerCount + " Spieler"
+                        font.pixelSize: 20
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    Button {
+                        text: "→"
+                        enabled: mainWindow.playerCount < 2
+                        onClicked: {
+                            mainWindow.playerCount += 1;
+                        }
+                    }
+
+                }
+
+                Button {
+                    text: qsTr("Galgenmann")
+                    visible: mainWindow.playerCount === 1
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onClicked: windowStack.push(Qt.resolvedUrl("Galgenmann.qml"))
+                }
+
+                Button {
+                    text: qsTr("Labyrinth")
+                    visible: mainWindow.playerCount === 1
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onClicked: console.log("Labyrinth choosen")
+                }
+
+                Button {
+                    text: qsTr("Snake")
+                    visible: mainWindow.playerCount === 1
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onClicked: console.log("Snake choosen")
+                }
+
+                Button {
+                    text: qsTr("Snake 2P")
+                    visible: mainWindow.playerCount === 2
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onClicked: console.log("Snake 2P choosen")
+                }
+
+                Button {
+                    text: qsTr("Pong")
+                    visible: mainWindow.playerCount === 2
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onClicked: console.log("Pong choosen")
+                }
+
+                Button {
+                    text: qsTr("Space Invaders")
+                    visible: mainWindow.playerCount === 1
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onClicked: console.log("Space Invaders choosen")
+                }
+
+                Button {
+                    text: qsTr("Simple RPG")
+                    visible: mainWindow.playerCount === 1
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onClicked: console.log("Simple RPG choosen")
                 }
             }
-
-            Text{
-                id: selectionText
-                text: mainWindow.playerCount + " Spieler"
-                font.pixelSize: 20
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-            }
-
-            Button {
-                text: "→"
-                enabled: mainWindow.playerCount < 2
-                onClicked: {
-                    mainWindow.playerCount += 1;
-                }
-            }
-
-        }
-
-        Button {
-            text: qsTr("Galgenmann")
-            visible: mainWindow.playerCount === 1
-            anchors.horizontalCenter: parent.horizontalCenter
-            onClicked: console.log("Galgenmann choosen")
-        }
-
-        Button {
-            text: qsTr("Labyrinth")
-            visible: mainWindow.playerCount === 1
-            anchors.horizontalCenter: parent.horizontalCenter
-            onClicked: console.log("Labyrinth choosen")
-        }
-
-        Button {
-            text: qsTr("Snake")
-            visible: mainWindow.playerCount === 1
-            anchors.horizontalCenter: parent.horizontalCenter
-            onClicked: console.log("Snake choosen")
-        }
-
-        Button {
-            text: qsTr("Snake 2P")
-            visible: mainWindow.playerCount === 2
-            anchors.horizontalCenter: parent.horizontalCenter
-            onClicked: console.log("Snake 2P choosen")
-        }
-
-        Button {
-            text: qsTr("Pong")
-            visible: mainWindow.playerCount === 2
-            anchors.horizontalCenter: parent.horizontalCenter
-            onClicked: console.log("Pong choosen")
-        }
-
-        Button {
-            text: qsTr("Space Invaders")
-            visible: mainWindow.playerCount === 1
-            anchors.horizontalCenter: parent.horizontalCenter
-            onClicked: console.log("Space Invaders choosen")
-        }
-
-        Button {
-            text: qsTr("Simple RPG")
-            visible: mainWindow.playerCount === 1
-            anchors.horizontalCenter: parent.horizontalCenter
-            onClicked: console.log("Simple RPG choosen")
         }
     }
+
+    // Content Area
+
 }

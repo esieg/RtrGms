@@ -32,15 +32,23 @@ Item{
         anchors.margins: 20
         spacing: 10
 
+        Text {
+            Layout.fillWidth: true
+            text: "Galgenmann"
+            font.pixelSize: 36
+            color: "red"
+            horizontalAlignment: Text.AlignHCenter
+        }
+
         // Galgenmann-Picture
         Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 200
             color: "lightgray"
-            Text {
+
+            Image {
                 anchors.centerIn: parent
-                font.pixelSize: 50
-                text: (galgenmann.missGuessedLetters.length < galgenmann.maxErrors ? String(galgenmann.missGuessedLetters.length + 1) : "Game Over")
+                source: "qrc:/Assets/Galgenmann/Galgenmann_" + galgenmann.missGuessedLetters.length + ".png"
             }
         }
 

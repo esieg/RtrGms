@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Assets/Galgenmann/Galgenmann_0.png</file>
+        <file>Assets/Galgenmann/Galgenmann_1.png</file>
+        <file>Assets/Galgenmann/Galgenmann_2.png</file>
+        <file>Assets/Galgenmann/Galgenmann_3.png</file>
+        <file>Assets/Galgenmann/Galgenmann_4.png</file>
+        <file>Assets/Galgenmann/Galgenmann_5.png</file>
+        <file>Assets/Galgenmann/Galgenmann_6.png</file>
+        <file>Assets/Galgenmann/Galgenmann_7.png</file>
+        <file>Assets/Galgenmann/Galgenmann_8.png</file>
+    </qresource>
+</RCC>

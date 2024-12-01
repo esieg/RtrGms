@@ -16,15 +16,9 @@ Window {
     id: mainWindow
     property int playerCount: 1
 
-    // Dialog
-    Dialog {
-        id: notImplementedDialog
-        title: "Not Available"
-        standardButtons: Dialog.Ok
-
-        Label {
-            text: "Dieses Spiel ist noch nicht implementiert"
-        }
+    Notification {
+        id: globalNotification
+        anchors.bottom: parent.bottom
     }
 
     // Menu
@@ -104,42 +98,60 @@ Window {
                     text: qsTr("Labyrinth")
                     visible: mainWindow.playerCount === 1
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: notImplementedDialog.open()
+                    onClicked: {
+                        globalNotification.message = "Labyrinth ist noch nicht implementiert"
+                        globalNotification.showNotification()
+                    }
                 }
 
                 Button {
                     text: qsTr("Snake")
                     visible: mainWindow.playerCount === 1
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: notImplementedDialog.open()
+                    onClicked: {
+                        globalNotification.message = "Snake ist noch nicht implementiert"
+                        globalNotification.showNotification()
+                    }
                 }
 
                 Button {
                     text: qsTr("Snake 2P")
                     visible: mainWindow.playerCount === 2
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: notImplementedDialog.open()
+                    onClicked: {
+                        globalNotification.message = "Snake 2P ist noch nicht implementiert"
+                        globalNotification.showNotification()
+                    }
                 }
 
                 Button {
                     text: qsTr("Pong")
                     visible: mainWindow.playerCount === 2
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: notImplementedDialog.open()
+                    onClicked: {
+                        globalNotification.message = "Pong ist noch nicht implementiert"
+                        globalNotification.showNotification()
+                    }
                 }
 
                 Button {
                     text: qsTr("Space Invaders")
                     visible: mainWindow.playerCount === 1
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: notImplementedDialog.open()
+                    onClicked: {
+                        globalNotification.message = "Space Invaders ist noch nicht implementiert"
+                        globalNotification.showNotification()
+                    }
                 }
 
                 Button {
                     text: qsTr("Simple RPG")
                     visible: mainWindow.playerCount === 1
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: notImplementedDialog.open()
+                    onClicked: {
+                        globalNotification.message = "Simple RPG ist noch nicht implementiert"
+                        globalNotification.showNotification()
+                    }
                 }
             }
         }

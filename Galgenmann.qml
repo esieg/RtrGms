@@ -36,7 +36,7 @@ Item{
             Layout.fillWidth: true
             text: "Galgenmann"
             font.pixelSize: 36
-            color: "red"
+            color: "#4C0E52"
             horizontalAlignment: Text.AlignHCenter
         }
 
@@ -115,7 +115,7 @@ Item{
             Layout.fillWidth: true
             visible: galgenmann.missGuessedLetters.length >= galgenmann.maxErrors || galgenmann.guessedLettersContainsWord()
             font.pixelSize: 24
-            color: galgenmann.missGuessedLetters.length >= galgenmann.maxErrors ? "red" : "green"
+            color: galgenmann.missGuessedLetters.length >= galgenmann.maxErrors ? "#4C0E52" : "#6abe30"
             text: galgenmann.missGuessedLetters.length >= galgenmann.maxErrors ? "Du hast verloren" : "Du hast gewonnen"
             horizontalAlignment: Text.AlignHCenter
         }

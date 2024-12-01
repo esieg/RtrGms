@@ -47,110 +47,133 @@ Window {
         anchors.fill: parent
 
         initialItem: Item {
-            width: 800
-            height: 640
+            width: parent.width
+            height: parent.height
 
-            Column {
-                anchors.top: parent.top
-                anchors.right: parent.right
-                anchors.topMargin: 70
-                anchors.rightMargin: 70
+            Row {
+                width: parent.width
+                height: parent.height
+                anchors.fill: parent
                 spacing: 20
 
-                // first line should rontain a row with 1 or 2 Player Games selection
-                Row {
-                    spacing: 10
+                Rectangle {
+                    width: parent.width * 2 / 3
+                    height: parent.height
+                    color: "#4C0E52"
+
+                    Image {
+                        source: "qrc:/Assets/General/Icon.png"
+                        fillMode: Image.PreserveAspectFit
+                        anchors.centerIn: parent
+                        width: parent.width * 0.5
+                        height: width
+                        smooth: false
+                    }
+                }
+
+                Column {
+                    width: parent.width * 1 / 3 - 40
+                    anchors.top: parent.top
+                    anchors.right: parent.right
+                    anchors.topMargin: 70
+                    anchors.rightMargin: 20
+                    spacing: 20
+
+                    // first line should rontain a row with 1 or 2 Player Games selection
+                    Row {
+                        spacing: 10
+
+                        Button {
+                            text: "←"
+                            enabled: mainWindow.playerCount > 1
+                            onClicked: {
+                                mainWindow.playerCount -= 1;
+                            }
+                        }
+
+                        Text{
+                            id: selectionText
+                            text: mainWindow.playerCount + " Spieler"
+                            font.pixelSize: 20
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                        }
+
+                        Button {
+                            text: "→"
+                            enabled: mainWindow.playerCount < 2
+                            onClicked: {
+                                mainWindow.playerCount += 1;
+                            }
+                        }
+
+                    }
 
                     Button {
-                        text: "←"
-                        enabled: mainWindow.playerCount > 1
+                        text: qsTr("Galgenmann")
+                        visible: mainWindow.playerCount === 1
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        onClicked: windowStack.push(Qt.resolvedUrl("Galgenmann.qml"))
+                    }
+
+                    Button {
+                        text: qsTr("Labyrinth")
+                        visible: mainWindow.playerCount === 1
+                        anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
-                            mainWindow.playerCount -= 1;
+                            globalNotification.message = "Labyrinth ist noch nicht implementiert"
+                            globalNotification.showNotification()
                         }
                     }
 
-                    Text{
-                        id: selectionText
-                        text: mainWindow.playerCount + " Spieler"
-                        font.pixelSize: 20
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                    }
-
                     Button {
-                        text: "→"
-                        enabled: mainWindow.playerCount < 2
+                        text: qsTr("Snake")
+                        visible: mainWindow.playerCount === 1
+                        anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
-                            mainWindow.playerCount += 1;
+                            globalNotification.message = "Snake ist noch nicht implementiert"
+                            globalNotification.showNotification()
                         }
                     }
 
-                }
-
-                Button {
-                    text: qsTr("Galgenmann")
-                    visible: mainWindow.playerCount === 1
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: windowStack.push(Qt.resolvedUrl("Galgenmann.qml"))
-                }
-
-                Button {
-                    text: qsTr("Labyrinth")
-                    visible: mainWindow.playerCount === 1
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: {
-                        globalNotification.message = "Labyrinth ist noch nicht implementiert"
-                        globalNotification.showNotification()
+                    Button {
+                        text: qsTr("Snake 2P")
+                        visible: mainWindow.playerCount === 2
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        onClicked: {
+                            globalNotification.message = "Snake 2P ist noch nicht implementiert"
+                            globalNotification.showNotification()
+                        }
                     }
-                }
 
-                Button {
-                    text: qsTr("Snake")
-                    visible: mainWindow.playerCount === 1
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: {
-                        globalNotification.message = "Snake ist noch nicht implementiert"
-                        globalNotification.showNotification()
+                    Button {
+                        text: qsTr("Pong")
+                        visible: mainWindow.playerCount === 2
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        onClicked: {
+                            globalNotification.message = "Pong ist noch nicht implementiert"
+                            globalNotification.showNotification()
+                        }
                     }
-                }
 
-                Button {
-                    text: qsTr("Snake 2P")
-                    visible: mainWindow.playerCount === 2
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: {
-                        globalNotification.message = "Snake 2P ist noch nicht implementiert"
-                        globalNotification.showNotification()
+                    Button {
+                        text: qsTr("Space Invaders")
+                        visible: mainWindow.playerCount === 1
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        onClicked: {
+                            globalNotification.message = "Space Invaders ist noch nicht implementiert"
+                            globalNotification.showNotification()
+                        }
                     }
-                }
 
-                Button {
-                    text: qsTr("Pong")
-                    visible: mainWindow.playerCount === 2
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: {
-                        globalNotification.message = "Pong ist noch nicht implementiert"
-                        globalNotification.showNotification()
-                    }
-                }
-
-                Button {
-                    text: qsTr("Space Invaders")
-                    visible: mainWindow.playerCount === 1
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: {
-                        globalNotification.message = "Space Invaders ist noch nicht implementiert"
-                        globalNotification.showNotification()
-                    }
-                }
-
-                Button {
-                    text: qsTr("Simple RPG")
-                    visible: mainWindow.playerCount === 1
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: {
-                        globalNotification.message = "Simple RPG ist noch nicht implementiert"
-                        globalNotification.showNotification()
+                    Button {
+                        text: qsTr("Simple RPG")
+                        visible: mainWindow.playerCount === 1
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        onClicked: {
+                            globalNotification.message = "Simple RPG ist noch nicht implementiert"
+                            globalNotification.showNotification()
+                        }
                     }
                 }
             }

@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include <QIcon>
+#include "labyrinth.h"
 
 int main(int argc, char *argv[])
 {
@@ -10,6 +12,11 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+
+    // add and register custom Objects to QML
+    Labyrinth labyrinth;
+    engine.rootContext()->setContextProperty("labyrinth", &labyrinth);
+
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreationFailed,

@@ -119,10 +119,7 @@ Window {
                         text: qsTr("Labyrinth")
                         visible: mainWindow.playerCount === 1
                         anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: {
-                            globalNotification.message = "Labyrinth ist noch nicht implementiert"
-                            globalNotification.showNotification()
-                        }
+                        onClicked: windowStack.push(Qt.resolvedUrl("Labyrinth.qml"))
                     }
 
                     Button {

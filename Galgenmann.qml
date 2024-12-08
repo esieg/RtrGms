@@ -22,7 +22,7 @@ Item{
     }
 
     Component.onCompleted: {
-        selectRandomWord();
+        resetGame();
     }
 
     ColumnLayout {

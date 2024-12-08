@@ -5,9 +5,9 @@ import QtQuick.Controls.Material
 Window {
     // Defining the Window
     visible: true
-    width: 800
-    height: 640
-    title: qsTr("Retro Games")
+    width: Qt.platform.os === "ios" ? Screen.width : 800
+    height: Qt.platform.os === "ios" ? Screen.height : 640
+    title: qsTr("Rtr Gms")
 
     // without this, we get problems at MacOS darkmode
     Material.theme: Material.Light
@@ -47,13 +47,13 @@ Window {
         anchors.fill: parent
 
         initialItem: Item {
-            width: parent.width
-            height: parent.height
+            width: mainWindow.width
+            height: mainWindow.height
 
             Row {
                 width: parent.width
                 height: parent.height
-                anchors.fill: parent
+                //anchors.fill: parent
                 spacing: 20
 
                 Rectangle {
@@ -72,16 +72,15 @@ Window {
                 }
 
                 Column {
-                    width: parent.width * 1 / 3 - 40
+                    width: parent.width * 1 / 3 - parent.width / 20
                     anchors.top: parent.top
-                    anchors.right: parent.right
                     anchors.topMargin: 70
-                    anchors.rightMargin: 20
                     spacing: 20
 
                     // first line should rontain a row with 1 or 2 Player Games selection
                     Row {
                         spacing: 10
+                        anchors.horizontalCenter: parent.horizontalCenter
 
                         Button {
                             text: "←"

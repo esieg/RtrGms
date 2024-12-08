@@ -14,6 +14,7 @@ Item {
     anchors.bottom: parent.bottom
     opacity: 0.0
     visible: false
+    z: 100 // get sure, notification will be displayed
 
     Rectangle {
         id: notificationBar

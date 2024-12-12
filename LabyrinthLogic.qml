@@ -4,12 +4,12 @@ import QtQml
 QtObject {
     id: labyrinthLogic
 
-    property int width: 40
-    property int height: 30
+    property int width: 30
+    property int height: 20
     property int boulder_cnt: 50
 
     property var player: ({ "x": 3, "y": 3, "type": "Player" })
-    property var gate: ({ "x": 37, "y": 27, "type": "Gate" })
+    property var gate: ({ "x": 27, "y": 17, "type": "Gate" })
     property var boulders: []
 
     signal playerMoved()
@@ -93,5 +93,12 @@ QtObject {
                 playerMoved();
             }
         }
+    }
+
+    function reset() {
+        player.x = 3;
+        player.y = 3;
+        initializeLabyrinth();
+        playerMoved();
     }
 }

@@ -4,5 +4,6 @@
         <file>Assets/Labyrinth/Gate.png</file>
         <file>Assets/Labyrinth/Hero.png</file>
         <file>Assets/Labyrinth/Labyrinth.png</file>
+        <file>Assets/Labyrinth/Arrived.png</file>
     </qresource>
 </RCC>

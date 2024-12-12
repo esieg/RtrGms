@@ -126,17 +126,27 @@ Window {
                     }
 
                     Button {
-                        icon.name: "Labyrinth"
+                        icon.name: "Boulder"
                         icon.source: "qrc:/Assets/Labyrinth/Labyrinth.png"
                         icon.color: "transparent"
                         icon.width: 32
                         icon.height: 32
-                        text: qsTr("Labyrinth")
+                        text: qsTr("Boulder")
                         visible: mainWindow.playerCount === 1
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
                             labyrinthLogic.initializeLabyrinth()
                             windowStack.push(Qt.resolvedUrl("Labyrinth.qml"), { logic: labyrinthLogic })
+                        }
+                    }
+
+                    Button {
+                        text: qsTr("Labyrinth")
+                        visible: mainWindow.playerCount === 1
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        onClicked: {
+                            globalNotification.message = "Labyrinth ist noch nicht implementiert"
+                            globalNotification.showNotification()
                         }
                     }
 

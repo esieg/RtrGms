@@ -13,9 +13,15 @@ Item {
 
     property var logic // get logic class from main
     property int fieldSize: 20
+    property bool success: false
 
     Component.onCompleted: {
         forceActiveFocus()
+    }
+
+    Connections {
+        target: labyrinth.logic
+        function onGateArrived() { labyrinth.success = true }
     }
 
     Flickable {
@@ -43,6 +49,7 @@ Item {
                 Layout.preferredWidth: labyrinth.logic.width * labyrinth.fieldSize
                 Layout.preferredHeight: labyrinth.logic.height * labyrinth.fieldSize
                 Layout.alignment: Qt.AlignHCenter
+                visible: !labyrinth.success
 
                 Grid {
                     id: playfield
@@ -92,6 +99,33 @@ Item {
                 }
             }
 
+            // WonRectangle
+            Text {
+                Layout.fillWidth: true
+                visible: labyrinth.success
+                font.pixelSize: 24
+                color: "#6abe30"
+                text: "Du hast gewonnen"
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+
+            Rectangle {
+                Layout.preferredWidth: labyrinth.logic.width * labyrinth.fieldSize
+                Layout.preferredHeight: labyrinth.logic.height * labyrinth.fieldSize
+                visible: labyrinth.success
+
+                Image {
+                    anchors.centerIn: parent
+                    source: "qrc:/Assets/Labyrinth/Arrived.png"
+                    width: 240
+                    height: 240
+                    fillMode: Image.Stretch
+                    smooth: false
+                }
+            }
+
+
             // controll buttons
             RowLayout {
                 Layout.fillWidth: true
@@ -113,7 +147,8 @@ Item {
 
     // define functions
     function resetGame() {
-
+        success = false
+        logic.reset()
     }
 
     Keys.onPressed: function(event) {

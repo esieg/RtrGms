@@ -15,12 +15,7 @@ Item {
     property int fieldSize: 20
 
     Component.onCompleted: {
-        /*console.log("Logic in Presentation")
-        console.log(`${logic.player.type}: ${logic.player.x},${logic.player.y}`)
-        console.log(`${logic.gate.type}: ${logic.gate.x},${logic.gate.y}`)
-        for (let boulder of logic.boulders) {
-            console.log(`${boulder.type}: ${boulder.x},${boulder.y}`)
-        }*/
+        forceActiveFocus()
     }
 
     Flickable {
@@ -71,16 +66,26 @@ Item {
 
                             // check if any object should be here displayed
                             Component.onCompleted: {
-                                // TODO: Nochmal X und Y überprüfen, auch in der Logik!
-                                x = index % labyrinth.logic.width
-                                y = Math.floor(index / labyrinth.logic.width)
-                                if(x === labyrinth.logic.player.x && y === labyrinth.logic.player.y) {
-                                    icon.source = "qrc:/Assets/Labyrinth/Hero.png"
+                                updateIcon();
+                            }
+
+                            function updateIcon() {
+                                let x = index % labyrinth.logic.width;
+                                let y = Math.floor(index / labyrinth.logic.width);
+                                if (x === labyrinth.logic.player.x && y === labyrinth.logic.player.y) {
+                                    icon.source = "qrc:/Assets/Labyrinth/Hero.png";
                                 } else if (x === labyrinth.logic.gate.x && y === labyrinth.logic.gate.y) {
-                                    icon.source = "qrc:/Assets/Labyrinth/Gate.png"
+                                    icon.source = "qrc:/Assets/Labyrinth/Gate.png";
                                 } else if (labyrinth.logic.boulders.some(boulder => boulder.x === x && boulder.y === y)) {
-                                    icon.source = "qrc:/Assets/Labyrinth/Boulder.png"
+                                    icon.source = "qrc:/Assets/Labyrinth/Boulder.png";
+                                } else {
+                                    icon.source = ""; // Keine Grafik anzeigen
                                 }
+                            }
+
+                            Connections {
+                                target: labyrinth.logic
+                                function onPlayerMoved() { updateIcon() }
                             }
                         }
                     }
@@ -111,15 +116,7 @@ Item {
 
     }
 
-    // Focus Handling
-    focus: true
-    Keys.enabled: true
-    Keys.onPressed: {
-        console.log("Key Pressed:", event.key)
-        // Beispiel: Key-Ereignisse weitergeben
-        if (logic) {
-            logic.handleKeyPress(event.key); // Implementiere die Funktion in der Logik
-        }
+    Keys.onPressed: function(event) {
+        logic.handleKey(event.key)
     }
-
 }

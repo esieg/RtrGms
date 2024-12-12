@@ -16,9 +16,14 @@ Window {
     id: mainWindow
     property int playerCount: 1
 
+    // Load QMLs
     Notification {
         id: globalNotification
         anchors.bottom: parent.bottom
+    }
+
+    LabyrinthLogic {
+        id: labyrinthLogic
     }
 
     // Menu
@@ -109,6 +114,11 @@ Window {
                     }
 
                     Button {
+                        icon.name: "Galgenmann"
+                        icon.source: "qrc:/Assets/Galgenmann/Galgenmann_8.png"
+                        icon.color: "transparent"
+                        icon.width: 32
+                        icon.height: 32
                         text: qsTr("Galgenmann")
                         visible: mainWindow.playerCount === 1
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -116,10 +126,18 @@ Window {
                     }
 
                     Button {
+                        icon.name: "Labyrinth"
+                        icon.source: "qrc:/Assets/Labyrinth/Labyrinth.png"
+                        icon.color: "transparent"
+                        icon.width: 32
+                        icon.height: 32
                         text: qsTr("Labyrinth")
                         visible: mainWindow.playerCount === 1
                         anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: windowStack.push(Qt.resolvedUrl("Labyrinth.qml"))
+                        onClicked: {
+                            labyrinthLogic.initializeLabyrinth()
+                            windowStack.push(Qt.resolvedUrl("Labyrinth.qml"), { logic: labyrinthLogic })
+                        }
                     }
 
                     Button {

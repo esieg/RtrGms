@@ -36,8 +36,9 @@ qt_add_qml_module(RtrGms
         RESOURCES Galgenmann.qrc
         QML_FILES Notification.qml
         RESOURCES General.qrc
+        RESOURCES Labyrinth.qrc
+        QML_FILES LabyrinthLogic.qml
         QML_FILES Labyrinth.qml
-        SOURCES labyrinth.h labyrinth.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

@@ -1,27 +1,26 @@
-pragma ComponentBehavior: Bound // needed, for access to labyrinth in deeper nesting
-
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
 
-Item{
-    id: qLabyrinth
+pragma ComponentBehavior: Bound
+
+Item {
+    id: labyrinth
 
     // without this, we get problems at MacOS darkmode
     Material.theme: Material.Light
 
-    property int steps: 0
-    property int maxSteps: 50
-    property int boulders: 50
-    property int gameWidth: 800
-    property int gameHeight: 600
+    property var logic // get logic class from main
     property int fieldSize: 20
-    property var labyrinth: {} // is managed trough cpp
-    property var boulderPositions: []
 
     Component.onCompleted: {
-        resetGame();
+        /*console.log("Logic in Presentation")
+        console.log(`${logic.player.type}: ${logic.player.x},${logic.player.y}`)
+        console.log(`${logic.gate.type}: ${logic.gate.x},${logic.gate.y}`)
+        for (let boulder of logic.boulders) {
+            console.log(`${boulder.type}: ${boulder.x},${boulder.y}`)
+        }*/
     }
 
     Flickable {
@@ -46,31 +45,41 @@ Item{
 
             // Playfield
             Rectangle {
-                Layout.preferredWidth: qLabyrinth.gameWidth
-                Layout.preferredHeight: qLabyrinth.gameHeight
+                Layout.preferredWidth: labyrinth.logic.width * labyrinth.fieldSize
+                Layout.preferredHeight: labyrinth.logic.height * labyrinth.fieldSize
                 Layout.alignment: Qt.AlignHCenter
-                color: "lightgray"
 
                 Grid {
                     id: playfield
                     anchors.centerIn: parent
-                    columns: Math.floor(qLabyrinth.gameWidth / qLabyrinth.fieldSize)
-                    rows: Math.floor(qLabyrinth.gameHeight / qLabyrinth.fieldSize)
+                    columns: labyrinth.logic.width
+                    rows: labyrinth.logic.height
 
                     Repeater {
-                        model: playfield.columns * playfield.rows
+                        model: labyrinth.logic.width * labyrinth.logic.height
                         Rectangle {
-                            width: qLabyrinth.fieldSize
-                            height: qLabyrinth.fieldSize
-                            opacity: 0
+                            width: labyrinth.fieldSize
+                            height: labyrinth.fieldSize
+                            color: "lightgrey"
+                            opacity: 100
                             required property int index
 
-                            //save rectangle === field in the map
+                            Image {
+                                id: icon
+                                anchors.centerIn: parent
+                            }
+
+                            // check if any object should be here displayed
                             Component.onCompleted: {
-                                if (qLabyrinth.labyrinth) {
-                                    var x = Math.floor(index % playfield.columns)
-                                    var y = Math.floor(index / playfield.columns)
-                                    qLabyrinth.labyrinth.addField(x, y, {id: parent})
+                                // TODO: Nochmal X und Y überprüfen, auch in der Logik!
+                                x = index % labyrinth.logic.width
+                                y = Math.floor(index / labyrinth.logic.width)
+                                if(x === labyrinth.logic.player.x && y === labyrinth.logic.player.y) {
+                                    icon.source = "qrc:/Assets/Labyrinth/Hero.png"
+                                } else if (x === labyrinth.logic.gate.x && y === labyrinth.logic.gate.y) {
+                                    icon.source = "qrc:/Assets/Labyrinth/Gate.png"
+                                } else if (labyrinth.logic.boulders.some(boulder => boulder.x === x && boulder.y === y)) {
+                                    icon.source = "qrc:/Assets/Labyrinth/Boulder.png"
                                 }
                             }
                         }
@@ -85,13 +94,13 @@ Item{
                 Button {
                     text: "Spiel beenden"
                     onClicked: {
-                        qLabyrinth.resetGame()
+                        labyrinth.resetGame()
                         windowStack.pop()
                     }
                 }
                 Button {
                     text: "Neues Spiel"
-                    onClicked: qLabyrinth.resetGame()
+                    onClicked: labyrinth.resetGame()
                 }
             }
         }
@@ -102,12 +111,15 @@ Item{
 
     }
 
-    function setBoulders() {
-        while (boulderPositions.length < boulders) {
-            var randomIndex = Math.floor(Math.random() * (columns * rows));
-            if (boulderPositions.indexOf(randomIndex) === -1) { // get sure the boulders are unique
-                boulderPositions.push(randomIndex);
-            }
+    // Focus Handling
+    focus: true
+    Keys.enabled: true
+    Keys.onPressed: {
+        console.log("Key Pressed:", event.key)
+        // Beispiel: Key-Ereignisse weitergeben
+        if (logic) {
+            logic.handleKeyPress(event.key); // Implementiere die Funktion in der Logik
         }
     }
+
 }

@@ -22,8 +22,8 @@ Window {
         anchors.bottom: parent.bottom
     }
 
-    LabyrinthLogic {
-        id: labyrinthLogic
+    BoulderLogic {
+        id: boulderLogic
     }
 
     // Menu
@@ -127,7 +127,7 @@ Window {
 
                     Button {
                         icon.name: "Boulder"
-                        icon.source: "qrc:/Assets/Labyrinth/Labyrinth.png"
+                        icon.source: "qrc:/Assets/Boulder/Boulder.png"
                         icon.color: "transparent"
                         icon.width: 32
                         icon.height: 32
@@ -135,12 +135,17 @@ Window {
                         visible: mainWindow.playerCount === 1
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
-                            labyrinthLogic.initializeLabyrinth()
-                            windowStack.push(Qt.resolvedUrl("Labyrinth.qml"), { logic: labyrinthLogic })
+                            boulderLogic.initializeBoulder()
+                            windowStack.push(Qt.resolvedUrl("Boulder.qml"), { logic: boulderLogic })
                         }
                     }
 
                     Button {
+                        icon.name: "Labyrinth"
+                        icon.source: "qrc:/Assets/Labyrinth/Labyrinth.png"
+                        icon.color: "transparent"
+                        icon.width: 32
+                        icon.height: 32
                         text: qsTr("Labyrinth")
                         visible: mainWindow.playerCount === 1
                         anchors.horizontalCenter: parent.horizontalCenter

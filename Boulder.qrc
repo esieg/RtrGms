@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Assets/Boulder/Arrived.png</file>
+        <file>Assets/Boulder/Boulder.png</file>
+        <file>Assets/Boulder/Gate.png</file>
+        <file>Assets/Boulder/Hero.png</file>
+    </qresource>
+</RCC>

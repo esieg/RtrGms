@@ -42,6 +42,8 @@ qt_add_qml_module(RtrGms
         RESOURCES Boulder.qrc
         QML_FILES Boulder.qml BoulderLogic.qml
         RESOURCES Snake.qrc
+        QML_FILES SnakeLogic.qml
+        QML_FILES Snake.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

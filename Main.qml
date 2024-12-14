@@ -26,6 +26,10 @@ Window {
         id: boulderLogic
     }
 
+    SnakeLogic {
+        id: snakeLogic
+    }
+
     // Menu
     MenuBar {
 
@@ -156,12 +160,17 @@ Window {
                     }
 
                     Button {
+                        icon.name: "Labyrinth"
+                        icon.source: "qrc:/Assets/Snake/Icon.png"
+                        icon.color: "transparent"
+                        icon.width: 32
+                        icon.height: 32
                         text: qsTr("Snake")
                         visible: mainWindow.playerCount === 1
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: {
-                            globalNotification.message = "Snake ist noch nicht implementiert"
-                            globalNotification.showNotification()
+                            snakeLogic.initializeSnake()
+                            windowStack.push(Qt.resolvedUrl("Snake.qml"), { logic: snakeLogic })
                         }
                     }
 

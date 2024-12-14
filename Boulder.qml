@@ -38,7 +38,7 @@ Item {
 
             Text {
                 Layout.fillWidth: true
-                text: "Labyrinth"
+                text: "Boulder"
                 font.pixelSize: 36
                 color: "#4C0E52"
                 horizontalAlignment: Text.AlignHCenter

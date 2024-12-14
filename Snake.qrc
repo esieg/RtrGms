@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Assets/Snake/Body1.png</file>
+        <file>Assets/Snake/Body2.png</file>
+        <file>Assets/Snake/Body3.png</file>
+        <file>Assets/Snake/Body4.png</file>
+        <file>Assets/Snake/Fruit.png</file>
+        <file>Assets/Snake/Head1.png</file>
+        <file>Assets/Snake/Head2.png</file>
+        <file>Assets/Snake/Head3.png</file>
+        <file>Assets/Snake/Head4.png</file>
+        <file>Assets/Snake/Tail1.png</file>
+        <file>Assets/Snake/Tail2.png</file>
+        <file>Assets/Snake/Tail3.png</file>
+        <file>Assets/Snake/Tail4.png</file>
+        <file>Assets/Snake/Icon.png</file>
+    </qresource>
+</RCC>

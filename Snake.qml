@@ -92,16 +92,16 @@ Item {
                                     if (x === snake.logic.body[i].x && y === snake.logic.body[i].y) {
                                         body = true;
                                         if(i === snakelength - 1) {
-                                            icon.source = "qrc:/Assets/Snake/Tail_West.png";
+                                            icon.source = "qrc:/Assets/Snake/Tail_" + snake.logic.body[i].direction + ".png";;
                                         } else {
-                                            icon.source = "qrc:/Assets/Snake/Body_West.png";
+                                            icon.source = "qrc:/Assets/Snake/Body_" + snake.logic.body[i].direction + ".png";;
                                         }
                                         break
                                     }
                                 }
 
                                 if (x === snake.logic.head.x && y === snake.logic.head.y) {
-                                    icon.source = "qrc:/Assets/Snake/Head_West.png";
+                                    icon.source = "qrc:/Assets/Snake/Head_" + snake.logic.move.direction + ".png";
                                 } else if (x === snake.logic.fruit.x && y === snake.logic.fruit.y) {
                                     icon.source = "qrc:/Assets/Snake/Fruit.png";
                                 } else if (!body){

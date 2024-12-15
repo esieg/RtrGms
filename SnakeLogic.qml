@@ -11,9 +11,9 @@ QtObject {
     property int oSpeed: 8
 
     property var head: ({ x: 0, y: 0})
-    property var body: [{ x: 0, y: 0}]
+    property var body: [{ x: 0, y: 0, direction: "North"}]
     property var fruit: ({ x: 0, y: 0})
-    property var move: ({x: 0, y: 0, direction: "North"})
+    property var move: ({x: 0, y: 0, direction: "North", last: "North"})
     property int speed: oSpeed
     property bool grow: false
 
@@ -55,6 +55,7 @@ QtObject {
         // and add the tail
         body[0].x = head.x - move.x;
         body[0].y = head.y - move.y;
+        body[0].direction = move.direction;
 
         // set random position of the fruit
         setFruitPosition();
@@ -91,18 +92,23 @@ QtObject {
 
     function handleKey(key) {
         /* handle user input */
+        move.last = move.direction;
         if (key === Qt.Key_Up || key === Qt.Key_W) {
             move.x = 0;
             move.y = -1;
+            move.direction = "North";
         } else if (key === Qt.Key_Down || key === Qt.Key_S) {
             move.x = 0;
             move.y = 1;
+            move.direction = "South";
         } else if (key === Qt.Key_Left || key === Qt.Key_A) {
             move.x = -1;
             move.y = 0;
+            move.direction = "West";
         } else if (key === Qt.Key_Right || key === Qt.Key_D) {
             move.x = 1;
             move.y = 0;
+            move.direction = "East";
         }
     }
 
@@ -120,15 +126,37 @@ QtObject {
             gameOver()
         } else {
             var max = body.length - 1;
-            var tail = { x: body[max].x, y: body[max].y}
+            var tail = { x: body[max].x, y: body[max].y, direction: body[max].direction }
 
             // move body and tail
             for (var i = max; i > 0; i--) {
                 body[i].x = body[i-1].x;
                 body[i].y = body[i-1].y;
+                body[i].direction = body[i-1].direction;
             }
-            body[0].x = head.x
-            body[0].y = head.y
+            body[0].x = head.x;
+            body[0].y = head.y;
+            if (move.direction === move.last) {
+                body[0].direction = move.direction;
+            } else if (move.direction === "North" && move.last === "East") {
+                body[0].direction = "East_North";
+            } else if (move.direction === "North" && move.last === "West") {
+                body[0].direction = "West_North";
+            } else if (move.direction === "South" && move.last === "East"){
+                body[0].direction = "East_South";
+            } else if (move.direction === "South" && move.last === "West") {
+                body[0].direction = "West_South";
+            } else if (move.direction === "East" && move.last === "North") {
+               body[0].direction = "North_East";
+            } else if (move.direction === "East" && move.last === "South") {
+               body[0].direction = "South_East";
+            } else if (move.direction === "West" && move.last === "North"){
+               body[0].direction = "North_West";
+            } else if (move.direction === "West" && move.last === "South") {
+               body[0].direction = "South_West";
+            } else {
+                body[0].direction = move.direction;
+            }
 
             // move the head
             head.x = newX;
@@ -141,8 +169,28 @@ QtObject {
                 grow = false;
                 scoreUpdate();
             }
+
+            // handle tail single direction
+            handleTailSingleDirection()
+
+            // save last direction
+            move.last = move.direction;
         }
         repaint();
+    }
+
+    function handleTailSingleDirection() {
+        /* handle body with curve to single diretion at tail */
+        var max = body.length - 1;
+        if (body[max].direction === "North_East" || body[max].direction === "South_East") {
+            body[max].direction = "East";
+        } else if (body[max].direction === "North_West" || body[max].direction === "South_West") {
+            body[max].direction = "West";
+        } else if (body[max].direction === "West_North" || body[max].direction === "East_North") {
+            body[max].direction = "North";
+        } else if (body[max].direction === "West_South" || body[max].direction === "East_South") {
+            body[max].direction = "South";
+        }
     }
 
     function resetGame() {

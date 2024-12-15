@@ -147,14 +147,14 @@ Item {
                 Button {
                     text: "Spiel beenden"
                     onClicked: {
-                        snake.logic.resetGame()
+                        resetGame()
                         windowStack.pop()
                     }
                 }
                 // TODO: check if snake.running is reset to true, after gameover
                 Button {
                     text: "Neues Spiel"
-                    onClicked: snake.logic.resetGame()
+                    onClicked: resetGame()
                 }
             }
         }
@@ -162,8 +162,8 @@ Item {
 
     // define functions
     function resetGame() {
-        snake.running = true
-        logic.reset()
+        logic.resetGame()
+        running = true
     }
 
     Timer {
@@ -173,6 +173,7 @@ Item {
         running: true
         onTriggered: {
             snake.logic.newFrame()
+            console.log(running)
         }
     }
 

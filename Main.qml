@@ -161,7 +161,7 @@ Window {
 
                     Button {
                         icon.name: "Labyrinth"
-                        icon.source: "qrc:/Assets/Snake/Icon.png"
+                        icon.source: "qrc:/Assets/Snake/Snake.png"
                         icon.color: "transparent"
                         icon.width: 32
                         icon.height: 32

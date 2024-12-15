@@ -12,9 +12,8 @@ Item {
     Material.theme: Material.Light
 
     property var logic // get logic class from main
-    property int fieldSize: 8
+    property int fieldSize: 12
     property bool running: true
-    property int resizefactor: 3 // TODO: Have to work on the size properly
 
     Component.onCompleted: {
         forceActiveFocus()
@@ -49,8 +48,8 @@ Item {
 
             // Playfield
             Rectangle {
-                Layout.preferredWidth: snake.logic.width * snake.fieldSize * resizefactor
-                Layout.preferredHeight: snake.logic.height * snake.fieldSize * resizefactor
+                Layout.preferredWidth: snake.logic.width * snake.fieldSize
+                Layout.preferredHeight: snake.logic.height * snake.fieldSize
                 Layout.alignment: Qt.AlignHCenter
                 visible: snake.running
 
@@ -63,8 +62,8 @@ Item {
                     Repeater {
                         model: snake.logic.width * snake.logic.height
                         Rectangle {
-                            width: snake.fieldSize * snake.resizefactor
-                            height: snake.fieldSize * snake.resizefactor
+                            width: snake.fieldSize
+                            height: snake.fieldSize
                             color: "lightgrey"
                             opacity: 100
                             required property int index
@@ -72,8 +71,8 @@ Item {
                             Image {
                                 id: icon
                                 anchors.centerIn: parent
-                                width: implicitWidth * snake.resizefactor
-                                height: implicitHeight * snake.resizefactor
+                                width: implicitWidth
+                                height: implicitHeight
                             }
 
                             // check if any object should be here displayed
@@ -93,16 +92,16 @@ Item {
                                     if (x === snake.logic.body[i].x && y === snake.logic.body[i].y) {
                                         body = true;
                                         if(i === snakelength - 1) {
-                                            icon.source = "qrc:/Assets/Snake/Tail1.png";
+                                            icon.source = "qrc:/Assets/Snake/Tail_West.png";
                                         } else {
-                                            icon.source = "qrc:/Assets/Snake/Body1.png";
+                                            icon.source = "qrc:/Assets/Snake/Body_West.png";
                                         }
                                         break
                                     }
                                 }
 
                                 if (x === snake.logic.head.x && y === snake.logic.head.y) {
-                                    icon.source = "qrc:/Assets/Snake/Head1.png";
+                                    icon.source = "qrc:/Assets/Snake/Head_West.png";
                                 } else if (x === snake.logic.fruit.x && y === snake.logic.fruit.y) {
                                     icon.source = "qrc:/Assets/Snake/Fruit.png";
                                 } else if (!body){
@@ -151,7 +150,6 @@ Item {
                         windowStack.pop()
                     }
                 }
-                // TODO: check if snake.running is reset to true, after gameover
                 Button {
                     text: "Neues Spiel"
                     onClicked: resetGame()
@@ -173,7 +171,6 @@ Item {
         running: true
         onTriggered: {
             snake.logic.newFrame()
-            console.log(running)
         }
     }
 

@@ -1,18 +1,26 @@
 <RCC>
     <qresource prefix="/">
-        <file>Assets/Snake/Body1.png</file>
-        <file>Assets/Snake/Body2.png</file>
-        <file>Assets/Snake/Body3.png</file>
-        <file>Assets/Snake/Body4.png</file>
         <file>Assets/Snake/Fruit.png</file>
-        <file>Assets/Snake/Head1.png</file>
-        <file>Assets/Snake/Head2.png</file>
-        <file>Assets/Snake/Head3.png</file>
-        <file>Assets/Snake/Head4.png</file>
-        <file>Assets/Snake/Tail1.png</file>
-        <file>Assets/Snake/Tail2.png</file>
-        <file>Assets/Snake/Tail3.png</file>
-        <file>Assets/Snake/Tail4.png</file>
-        <file>Assets/Snake/Icon.png</file>
+        <file>Assets/Snake/Body_East_North.png</file>
+        <file>Assets/Snake/Body_East_South.png</file>
+        <file>Assets/Snake/Body_East.png</file>
+        <file>Assets/Snake/Body_North_East.png</file>
+        <file>Assets/Snake/Body_North_West.png</file>
+        <file>Assets/Snake/Body_North.png</file>
+        <file>Assets/Snake/Body_South_East.png</file>
+        <file>Assets/Snake/Body_South_West.png</file>
+        <file>Assets/Snake/Body_South.png</file>
+        <file>Assets/Snake/Body_West_North.png</file>
+        <file>Assets/Snake/Body_West_South.png</file>
+        <file>Assets/Snake/Body_West.png</file>
+        <file>Assets/Snake/Head_East.png</file>
+        <file>Assets/Snake/Head_North.png</file>
+        <file>Assets/Snake/Head_South.png</file>
+        <file>Assets/Snake/Head_West.png</file>
+        <file>Assets/Snake/Snake.png</file>
+        <file>Assets/Snake/Tail_East.png</file>
+        <file>Assets/Snake/Tail_North.png</file>
+        <file>Assets/Snake/Tail_South.png</file>
+        <file>Assets/Snake/Tail_West.png</file>
     </qresource>
 </RCC>

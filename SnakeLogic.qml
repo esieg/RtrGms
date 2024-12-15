@@ -8,7 +8,7 @@ QtObject {
     property int height: 20
 
     property int baseFrame: 4000
-    property int oSpeed: 5
+    property int oSpeed: 8
 
     property var head: ({ x: 0, y: 0})
     property var body: [{ x: 0, y: 0}]

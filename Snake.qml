@@ -88,10 +88,9 @@ Item {
 
                                 var snakelength = snake.logic.body.length;
 
-                                // TODO: trough some weird error, only body === 0 is shown
+                                // TODO: <Tail/Head/Body>_North_South...
                                 for(var i = 0; i < snakelength; i++) {
-                                    body = false;
-                                    if (x === snake.logic.body[i].x && y === snake.logic.body[i].y)
+                                    if (x === snake.logic.body[i].x && y === snake.logic.body[i].y) {
                                         body = true;
                                         if(i === snakelength - 1) {
                                             icon.source = "qrc:/Assets/Snake/Tail1.png";
@@ -99,6 +98,7 @@ Item {
                                             icon.source = "qrc:/Assets/Snake/Body1.png";
                                         }
                                         break
+                                    }
                                 }
 
                                 if (x === snake.logic.head.x && y === snake.logic.head.y) {
@@ -124,7 +124,7 @@ Item {
                 Layout.fillWidth: true
                 visible: !snake.running
                 font.pixelSize: 36
-                color: "red"
+                color: "#4C0E52"
                 text: "Game Over"
                 horizontalAlignment: Text.AlignHCenter
             }

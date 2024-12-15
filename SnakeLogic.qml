@@ -142,9 +142,6 @@ QtObject {
                 scoreUpdate();
             }
         }
-        for (var i = 0; i < body.length; i++) {
-            console.log(`Body ${i}: ${body[i].x}, ${body[i].y}`)
-        }
         repaint();
     }
 
